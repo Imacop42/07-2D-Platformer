@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://penciltileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/player.gd" type="Script" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://Assets/pencil/PencilMan/RawTiles/bush.png" type="Texture" id=14]
 [ext_resource path="res://Assets/pencil/PencilMan/RawTiles/tree1.png" type="Texture" id=15]
 [ext_resource path="res://Scenes/Door.gd" type="Script" id=16]
+[ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=18]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -66,6 +68,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 8, 8 )
 
 [node name="Level1" type="Node2D"]
 __meta__ = {
@@ -194,3 +197,9 @@ tile_data = PoolIntArray( 458762, -2147483648, 0, 458763, 1610612736, 0, 524294,
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="HUD" parent="." instance=ExtResource( 17 )]
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource( 18 )]

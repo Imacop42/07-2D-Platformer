@@ -1,14 +1,19 @@
 extends Node2D
 
-
+var s = global.score
+var l = global.lives
 func _ready():
 	pass
 
+	
+	
 
-func _on_Player_score_changed():
-	var s = get_node("/root/Level1/Player").score
+
+func _on_Timer_timeout():
+	var s = global.score
 	$Score.text = "Score: " + str(s)
-	var s2 = get_node("/root/Level2/Player").score
-	$Score.text = "Score: " + str(s2)
-	
-	
+	if global.score < 0:
+		global.score = 0
+	var l = global.lives
+	$Lives.text = "Lives: " + str(l)
+	#print("done")

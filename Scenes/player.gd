@@ -10,11 +10,13 @@ onready var raycast = $ray
 
 
 
-
 func _ready():
+	#var parent = get_parent()
+	#if parent.name == "Level1":
+	#	print("bro")
+	#if parent.name == "Level2":
+	#	print("bruh")
 	pass
-	
-	
 func _physics_process(delta):
 	
 	velocity.y += delta * GRAVITY
@@ -48,8 +50,25 @@ func _physics_process(delta):
 			velocity.y = -JUMP_FORCE
 	else:
 		$Sprite.play("jump")
+		#death
 	if position.y > 526:
 		queue_free()
+		var lives = global.lives
+		global.lives -= 1
+		global.score -= 25
+		#reload
+		var parent = get_parent()
+		if parent.name == "Level1":
+			get_tree().change_scene("res://Scenes/Level1.tscn")
+		if parent.name == "Level2":
+			get_tree().change_scene("res://Scenes/Level2.tscn")
+			if global.score < 50:
+				global.score = 50
+		#game over
+		if lives == 1:
+			queue_free()
+			get_tree().change_scene("res://Scenes/GameOver.tscn")
+		
 	
 
 	move_and_slide(velocity, Vector2(0, -1))

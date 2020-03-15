@@ -1,5 +1,6 @@
 extends Area2D
 
+
 func _ready():
 	pass
 func _physics_process(delta):
@@ -7,6 +8,6 @@ func _physics_process(delta):
 	for body in bodies:
 		if body.name == "Player":
 			global.score += 50
-			get_tree().change_scene("res://Scenes/Level2.tscn")
+			get_tree().change_scene("res://Scenes/Victory.tscn")
 	
 	
