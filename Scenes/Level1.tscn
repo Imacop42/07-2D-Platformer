@@ -1,0 +1,196 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://penciltileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Scenes/player.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/RayCast2D.gd" type="Script" id=3]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/paper bakcground.jpg" type="Texture" id=4]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/cloud2.png" type="Texture" id=5]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/cloud1.png" type="Texture" id=6]
+[ext_resource path="res://Assets/pencil/PencilMan/idle.png" type="Texture" id=7]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/door.png" type="Texture" id=8]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/tree3.png" type="Texture" id=9]
+[ext_resource path="res://Assets/pencil/PencilMan/playerRun.png" type="Texture" id=10]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/flower1.png" type="Texture" id=11]
+[ext_resource path="res://Assets/pencil/PencilMan/Jump.png" type="Texture" id=12]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/flower2.png" type="Texture" id=13]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/bush.png" type="Texture" id=14]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/tree1.png" type="Texture" id=15]
+[ext_resource path="res://Scenes/Door.gd" type="Script" id=16]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "jump",
+"speed": 7.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Run",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=8]
+
+[node name="Level1" type="Node2D"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Backrgound" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="paper bakcground" type="Sprite" parent="Backrgound"]
+position = Vector2( 512, 304 )
+scale = Vector2( 0.864865, 0.753788 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="cloud1" type="Sprite" parent="Backrgound"]
+position = Vector2( 112, 112 )
+scale = Vector2( 1.5, 1 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="cloud2" type="Sprite" parent="Backrgound"]
+position = Vector2( 376, 56 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="cloud3" type="Sprite" parent="Backrgound"]
+position = Vector2( 568, 96 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="cloud4" type="Sprite" parent="Backrgound"]
+position = Vector2( 832, 80 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Backrgound"]
+position = Vector2( 48, 264 )
+texture = ExtResource( 15 )
+
+[node name="Sprite6" type="Sprite" parent="Backrgound"]
+position = Vector2( 592, 364 )
+scale = Vector2( 1, 1.4375 )
+texture = ExtResource( 15 )
+
+[node name="Sprite2" type="Sprite" parent="Backrgound"]
+position = Vector2( 232, 200 )
+texture = ExtResource( 9 )
+
+[node name="Sprite3" type="Sprite" parent="Backrgound"]
+position = Vector2( 352, 208 )
+texture = ExtResource( 13 )
+
+[node name="Sprite4" type="Sprite" parent="Backrgound"]
+position = Vector2( 296, 432 )
+texture = ExtResource( 11 )
+
+[node name="Sprite5" type="Sprite" parent="Backrgound"]
+position = Vector2( 528, 432 )
+texture = ExtResource( 14 )
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 104, 288 )
+collision_layer = 4
+collision_mask = 14
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ray" type="RayCast2D" parent="Player"]
+position = Vector2( 0, 24 )
+enabled = true
+cast_to = Vector2( 0, 20 )
+collision_mask = 2
+script = ExtResource( 3 )
+
+[node name="Sprite" type="AnimatedSprite" parent="Player"]
+frames = SubResource( 7 )
+animation = "Run"
+speed_scale = 1.2
+flip_h = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
+polygon = PoolVector2Array( -16, 24, -16, 32, 16, 32, 16, -32, -16, -32 )
+
+[node name="Door" type="Area2D" parent="."]
+position = Vector2( 864, 416 )
+collision_layer = 8
+collision_mask = 4
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Door"]
+position = Vector2( 0, -16 )
+scale = Vector2( 1, 1.25 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+scale = Vector2( 4, 8 )
+shape = SubResource( 8 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+collision_layer = 2
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( 458762, -2147483648, 0, 458763, 1610612736, 0, 524294, -1610612735, 0, 524295, 1073741825, 0, 524296, -2147483648, 0, 524297, 1610612736, 0, 524298, -2147483648, 0, 524299, 1610612736, 0, 589830, 536870913, 0, 589831, 536870913, 0, 589832, -2147483648, 0, 589833, 1610612736, 0, 589834, 1073741824, 0, 589835, -1073741824, 0, 589838, -1610612735, 0, 589839, -536870911, 0, 589844, 1073741824, 0, 589845, 1073741824, 0, 589850, 2, 0, 589851, 2, 0, 589852, 2, 0, 589853, 2, 0, 589854, 2, 0, 589855, 2, 0, 655360, 0, 0, 655361, -1610612736, 0, 655362, 1, 0, 655363, -536870911, 0, 655374, 536870913, 0, 655375, 536870913, 0, 655380, -536870912, 0, 655381, -1073741824, 0, 655386, 2, 0, 655387, 2, 0, 655388, 2, 0, 655389, 2, 0, 655390, 2, 0, 655391, 2, 0, 720896, 536870912, 0, 720897, -1073741824, 0, 720898, -536870911, 0, 720899, 1, 0, 917508, 0, 0, 917509, 0, 0, 917512, -536870911, 0, 917513, -536870911, 0, 917518, 536870912, 0, 917519, -1610612736, 0, 917520, 1610612736, 0, 917521, 1610612736, 0, 917522, -536870911, 0, 917523, 1, 0, 983044, 0, 0, 983045, 0, 0, 983048, 1, 0, 983049, -2147483647, 0, 983054, 536870912, 0, 983055, -1610612736, 0, 983056, -536870912, 0, 983057, -536870912, 0, 983058, -2147483647, 0, 983059, 1, 0, 983064, 2, 0, 983065, 2, 0, 983066, 2, 0, 983067, 2, 0, 983068, 2, 0, 983069, 2, 0, 983070, 2, 0, 983071, 2, 0, 1048580, 0, 0, 1048581, -1610612736, 0, 1048584, -1610612735, 0, 1048585, 1073741825, 0, 1048600, 2, 0, 1048601, 2, 0, 1048602, 2, 0, 1048603, 2, 0, 1048604, 2, 0, 1048605, 2, 0, 1048606, 2, 0, 1048607, 2, 0, 1114116, 0, 0, 1114117, -1610612736, 0, 1114120, 1610612737, 0, 1114121, 1073741825, 0, 1114136, 1610612738, 0, 1114137, 2, 0, 1114138, 2, 0, 1114139, 2, 0, 1114140, 2, 0, 1114141, 2, 0, 1114142, 2, 0, 1114143, 2, 0, 1179648, -1073741821, 0, 1179649, -1073741821, 0, 1179650, -1073741821, 0, 1179651, -1073741821, 0, 1179652, -1073741821, 0, 1179653, -1073741821, 0, 1179654, -1073741821, 0, 1179655, -1073741821, 0, 1179656, -1073741821, 0, 1179657, -1073741821, 0, 1179658, -1073741821, 0, 1179659, -1073741821, 0, 1179660, -1073741821, 0, 1179661, -1073741821, 0, 1179662, -1073741821, 0, 1179663, -1073741821, 0, 1179664, -1073741821, 0, 1179665, -1073741821, 0, 1179666, -1073741821, 0, 1179667, -1073741821, 0, 1179668, -1073741821, 0, 1179669, -1073741821, 0, 1179670, -1073741821, 0, 1179671, -1073741821, 0, 1179672, -1073741821, 0, 1179673, -1073741821, 0, 1179674, -1073741821, 0, 1179675, -1073741821, 0, 1179676, -1073741821, 0, 1179677, -1073741821, 0, 1179678, -1073741821, 0, 1179679, -1073741821, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
