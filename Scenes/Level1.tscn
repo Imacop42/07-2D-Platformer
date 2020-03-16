@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://penciltileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Scenes/player.gd" type="Script" id=2]
@@ -18,36 +18,45 @@
 [ext_resource path="res://Scenes/Door.gd" type="Script" id=16]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Scenes/jump.gd" type="Script" id=20]
+[ext_resource path="res://Assets/Trouble Makers Pack/Trouble Makers (Loopable).wav" type="AudioStream" id=21]
+[ext_resource path="res://Scenes/Pain.gd" type="Script" id=22]
+[ext_resource path="res://Assets/pain_jack_03.wav" type="AudioStream" id=23]
+[ext_resource path="res://Scenes/woop.gd" type="Script" id=24]
+[ext_resource path="res://Assets/powerup_01.wav" type="AudioStream" id=25]
+[ext_resource path="res://Assets/jump_jack_01.wav" type="AudioStream" id=26]
+[ext_resource path="res://Scenes/soundtrack.gd" type="Script" id=27]
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
-atlas = ExtResource( 12 )
-region = Rect2( 384, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=2]
 flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=2]
 flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 128, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 192, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=5]
 flags = 4
 atlas = ExtResource( 10 )
 region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 384, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
@@ -56,15 +65,15 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 1 ) ],
-"loop": true,
-"name": "jump",
-"speed": 7.0
-}, {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
 "name": "Run",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "jump",
+"speed": 7.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
@@ -203,3 +212,34 @@ __meta__ = {
 [node name="Coins" type="Node2D" parent="."]
 
 [node name="Coin" parent="Coins" instance=ExtResource( 18 )]
+
+[node name="Enemy" parent="." instance=ExtResource( 19 )]
+position = Vector2( 776, 240 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 19 )]
+position = Vector2( 480, 152 )
+
+[node name="Pain" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+script = ExtResource( 22 )
+
+[node name="soundtrack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 21 )
+volume_db = -10.0
+script = ExtResource( 27 )
+
+[node name="woop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
+script = ExtResource( 24 )
+
+[node name="jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 26 )
+script = ExtResource( 20 )
+[connection signal="jumping" from="Player" to="jump" method="_on_Player_jumping"]
+[connection signal="body_entered" from="Coins/Coin" to="woop" method="_on_Coin_body_entered"]
+[connection signal="body_entered" from="Enemy/Enemytype1" to="Pain" method="_on_Enemytype1_body_entered"]
+[connection signal="body_entered" from="Enemy2/Enemytype1" to="Pain" method="_on_Enemytype1_body_entered"]
+
+[editable path="Enemy"]
+
+[editable path="Enemy2"]

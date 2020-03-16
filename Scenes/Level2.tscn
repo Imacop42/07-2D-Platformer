@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://penciltileset.tres" type="TileSet" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,19 @@
 [ext_resource path="res://Scenes/Coin.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/pencil/PencilMan/RawTiles/star.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Star.gd" type="Script" id=7]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/cloud2.png" type="Texture" id=8]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/cloud1.png" type="Texture" id=9]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/flower2.png" type="Texture" id=10]
+[ext_resource path="res://Assets/pencil/PencilMan/RawTiles/tree2.png" type="Texture" id=11]
+[ext_resource path="res://Scenes/jump.gd" type="Script" id=12]
+[ext_resource path="res://Assets/Trouble Makers Pack/Trouble Makers (Loopable).wav" type="AudioStream" id=13]
+[ext_resource path="res://Scenes/woop.gd" type="Script" id=14]
+[ext_resource path="res://Assets/powerup_01.wav" type="AudioStream" id=15]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scenes/Pain.gd" type="Script" id=17]
+[ext_resource path="res://Assets/jump_jack_01.wav" type="AudioStream" id=18]
+[ext_resource path="res://Assets/pain_jack_03.wav" type="AudioStream" id=19]
+[ext_resource path="res://Scenes/soundtrack.gd" type="Script" id=20]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 24.0
@@ -26,6 +39,33 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="tree2" type="Sprite" parent="background"]
+position = Vector2( 512, 96 )
+texture = ExtResource( 11 )
+
+[node name="flower2" type="Sprite" parent="background"]
+position = Vector2( 400, 208 )
+texture = ExtResource( 10 )
+
+[node name="cloud2" type="Sprite" parent="background"]
+position = Vector2( 176, 112 )
+texture = ExtResource( 8 )
+
+[node name="cloud1" type="Sprite" parent="background"]
+position = Vector2( 304, 160 )
+scale = Vector2( 1.5, 1.25 )
+texture = ExtResource( 9 )
+
+[node name="cloud3" type="Sprite" parent="background"]
+position = Vector2( 888, 216 )
+scale = Vector2( 2.5, 2 )
+texture = ExtResource( 8 )
+
+[node name="cloud4" type="Sprite" parent="background"]
+position = Vector2( 804, 92 )
+scale = Vector2( 1.91667, 1.375 )
+texture = ExtResource( 9 )
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 16, 440 )
 
@@ -44,9 +84,9 @@ tile_data = PoolIntArray( 327695, 536870912, 0, 327696, 536870912, 0, 327700, 53
 [node name="Coin" parent="Coins" instance=ExtResource( 5 )]
 position = Vector2( 672, 112 )
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="star" type="Node2D" parent="."]
 
-[node name="Star" type="Area2D" parent="Node2D"]
+[node name="Star" type="Area2D" parent="star"]
 position = Vector2( 48, 232 )
 collision_layer = 8
 collision_mask = 4
@@ -55,8 +95,38 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="Node2D/Star"]
+[node name="Sprite" type="Sprite" parent="star/Star"]
 texture = ExtResource( 6 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Star"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="star/Star"]
 shape = SubResource( 1 )
+
+[node name="Pain" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+script = ExtResource( 17 )
+
+[node name="soundtrack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -10.0
+script = ExtResource( 20 )
+
+[node name="woop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+script = ExtResource( 14 )
+
+[node name="jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+script = ExtResource( 12 )
+
+[node name="Enemy" parent="." instance=ExtResource( 16 )]
+position = Vector2( 320, 144 )
+
+[node name="AnimatedSprite" parent="Enemy/Enemytype1" index="0"]
+frame = 1
+flip_h = true
+[connection signal="jumping" from="Player" to="jump" method="_on_Player_jumping"]
+[connection signal="body_entered" from="Coins/Coin" to="woop" method="_on_Coin_body_entered"]
+[connection signal="body_entered" from="star/Star" to="woop" method="_on_Star_body_entered"]
+[connection signal="body_entered" from="Enemy/Enemytype1" to="Pain" method="_on_Enemytype1_body_entered"]
+
+[editable path="Enemy"]

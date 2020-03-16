@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/pain_jack_01.wav-ce7305829591ae35823f9849b0941574.sample"
+
+[deps]
+
+source_file="res://Assets/pain_jack_01.wav"
+dest_files=[ "res://.import/pain_jack_01.wav-ce7305829591ae35823f9849b0941574.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

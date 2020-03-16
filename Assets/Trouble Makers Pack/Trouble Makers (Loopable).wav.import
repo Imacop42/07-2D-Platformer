@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Trouble Makers (Loopable).wav-c1b9c1413e24e6ce6f3bfde18987dff9.sample"
+
+[deps]
+
+source_file="res://Assets/Trouble Makers Pack/Trouble Makers (Loopable).wav"
+dest_files=[ "res://.import/Trouble Makers (Loopable).wav-c1b9c1413e24e6ce6f3bfde18987dff9.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -5,9 +5,9 @@ const GRAVITY = 500.0
 const WALK_SPEED = 100
 var velocity = Vector2()
 var is_grounded = false
-
+var parent = get_parent()
 onready var raycast = $ray
-
+signal jumping
 
 
 func _ready():
@@ -48,6 +48,7 @@ func _physics_process(delta):
 	if is_grounded:
 		if Input.is_action_pressed("JUMP") && is_grounded:
 			velocity.y = -JUMP_FORCE
+			emit_signal("jumping")
 	else:
 		$Sprite.play("jump")
 		#death
@@ -69,6 +70,7 @@ func _physics_process(delta):
 			queue_free()
 			get_tree().change_scene("res://Scenes/GameOver.tscn")
 		
+		
 	
 
 	move_and_slide(velocity, Vector2(0, -1))
@@ -76,8 +78,10 @@ func _physics_process(delta):
 func _check_is_grounded():
 	if raycast.is_colliding():
 			return true
+			$land.autoplay()
 	
 	return false
+	
 	
 
 
